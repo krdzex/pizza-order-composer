@@ -74,3 +74,28 @@ export const oneLess = (id) => {
         id: id
     }
 }
+
+export const ordered = () => {
+    return {
+        type: "ORDERED",
+    }
+}
+
+
+export const deleteOrders = () => {
+    return {
+        type: "DELETE_ORDERS",
+    }
+}
+
+export const openHistory = () => {
+    return {
+        type: "OPEN_HISTORY",
+    }
+}
+
+export const closeHistory = () => {
+    return {
+        type: "CLOSE_HISTORY",
+    }
+}

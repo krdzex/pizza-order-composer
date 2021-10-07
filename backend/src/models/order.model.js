@@ -14,6 +14,9 @@ const OrderSchema = new mongoose.Schema({
     },
     creator:{
         type: String
+    },
+    quantity:{
+        type: Number
     }
 })
 

@@ -13,7 +13,7 @@ function isAuthenticated() {
 }
 
 function logout() {
-    if(typeof window !== "undefined") sessionStorage.removeItem("jwt")
+    if (typeof window !== "undefined") sessionStorage.removeItem("jwt")
 }
 
-export default { authenticate, isAuthenticated,logout }
+export default { authenticate, isAuthenticated, logout }

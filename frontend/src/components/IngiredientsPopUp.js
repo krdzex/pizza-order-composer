@@ -5,7 +5,7 @@ import { addIngredients, closePopUpIngredients } from '../actions';
 
 const IngiredientsPopUp = () => {
     const dispatch = useDispatch()
-    const [allIngredients,setAllIngredients] = useState([{
+    const [allIngredients, setAllIngredients] = useState([{
         glutenFree: true,
         isChacked: false,
         name: "Mozzarell cheese",
@@ -94,8 +94,8 @@ const IngiredientsPopUp = () => {
     const onClickClose = () => {
         const addingIngredientsArr = [];
         for (let i = 0; i < allIngredients.length; i++) {
-            if(allIngredients[i].isChacked){
-                addingIngredientsArr.push({name:allIngredients[i].name,price:allIngredients[i].price})
+            if (allIngredients[i].isChacked) {
+                addingIngredientsArr.push({ name: allIngredients[i].name, price: allIngredients[i].price })
             }
         }
         dispatch(closePopUpIngredients());
@@ -105,14 +105,14 @@ const IngiredientsPopUp = () => {
     const onRadioChange = (id) => {
         const allIngredientsCopy = allIngredients.slice();
 
-        if( allIngredients[id].isChacked === true) {
+        if (allIngredients[id].isChacked === true) {
             allIngredientsCopy[id].isChacked = false;
-        }else {
+        } else {
             allIngredientsCopy[id].isChacked = true;
         }
         setAllIngredients(allIngredientsCopy)
     }
-    
+
     const onRadioChange2 = () => {
     }
     return (
@@ -123,11 +123,11 @@ const IngiredientsPopUp = () => {
                 </div>
                 <div className="ingredients">
                     {allIngredients.map((ingredient, id) => {
-                        return <div className="ingredient" key={id}><div className="ingridientsLeftSide">{ingredient.glutenFree ? <img src={glutenFree} alt="glutenFreeIcon"></img> : <div style={{ width: "15px", color: "white" }}></div>}<input type="radio" id={id}  checked={allIngredients[id].isChacked} onClick={() => onRadioChange(id)} onChange={onRadioChange2} />{ingredient.name}</div> <div>{ingredient.price}$</div></div>
+                        return <div className="ingredient" key={id}><div className="ingridientsLeftSide">{ingredient.glutenFree ? <img src={glutenFree} alt="glutenFreeIcon"></img> : <div style={{ width: "15px", color: "white" }}></div>}<input type="radio" id={id} checked={allIngredients[id].isChacked} onClick={() => onRadioChange(id)} onChange={onRadioChange2} />{ingredient.name}</div> <div>{ingredient.price}$</div></div>
                     })}
+                </div>
+                <button onClick={() => onClickClose()}>+ ADD TO CART</button>
             </div>
-            <button onClick={() => onClickClose()}>+ ADD TO CART</button>
-        </div>
         </div >
     );
 };

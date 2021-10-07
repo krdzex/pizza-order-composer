@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addOrder, openPopUpIngredients } from '../actions';
 const Dough = ({ doughInfo }) => {
     const dispatch = useDispatch()
-    
+
     const onAddClick = () => {
         dispatch(openPopUpIngredients());
         dispatch(addOrder(doughInfo))

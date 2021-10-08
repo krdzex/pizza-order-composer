@@ -213,13 +213,43 @@ padding-right: 10px;
   
 }
 
-.address{
+.address, .addressNew{
     border: 1px solid black;
     width: 300px;
     height: 100px;
     float: left;
     max-width: 100%;
+    position: relative;
     margin-bottom: 2em;
+}
+
+
+.addressNew:hover{
+    background-color: gray;
+    cursor: pointer;
+}
+
+.addressNew:hover .addresOverlay h1{
+    visibility: visible;
+}
+.addresOverlay h1{
+    margin: 0px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    opacity: 1 !important;
+    visibility: hidden;
+}
+
+.addressNew h1{
+    margin: 0px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
 }
 
 .addresses{
@@ -390,4 +420,21 @@ padding-right: 10px;
     align-items: center;
     display: flex;
     justify-content: space-between;
+}
+
+.signInLogo img{
+    margin-right: 30px;
+}
+
+.notes textarea{
+width: 100%;
+}
+
+.notes p{
+    margin: 0px;
+    margin-right: 5px;
+}
+
+.notes{
+    display: flex;
 }

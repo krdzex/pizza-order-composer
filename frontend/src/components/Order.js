@@ -67,20 +67,9 @@ const Order = () => {
                     <div className="address">
 
                     </div>
-                    <div className="address">
-
-                    </div>
-                    <div className="address">
-
-                    </div>
-                    <div className="address">
-
-                    </div>
-                    <div className="address">
-
-                    </div>
-                    <div className="address">
-
+                    <div className="addressNew">
+                        <h1>Add new</h1>
+                        <div className="addresOverlay"><h1>+</h1></div>
                     </div>
                 </div>
             </div>
@@ -112,7 +101,11 @@ const Order = () => {
                     <h3>Total</h3>
                     <p>{multiplyPrice.reduce((a, b) => a + b, 5)}$</p>
                 </div>
-                <div style={{ display: 'flex', justifyContent: "center" }}>
+                <div className="notes">
+                    <p>Notes: </p>
+                    <textarea placeholder="Any additional notes" rows="4" cols="50" name="comment" form="usrform" />
+                </div>
+                <div style={{ display: 'flex', justifyContent: "center",marginTop: "1em" }}>
                     <button className="orderButton" onClick={() => onOrderClick()}>Order</button>
                 </div>
             </div>

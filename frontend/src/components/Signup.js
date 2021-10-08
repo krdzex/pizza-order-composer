@@ -87,7 +87,7 @@ const Signup = () => {
                         </div>)}
 
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center',marginTop:"5px"}}>
                         <button className="signinButton" onClick={clickSubmit}>Sign up</button>
                     </div>
                     <p style={{ textAlign: "center" }}>Already have an account, <a href="/#" onClick={onHrefClick}>Sign in</a></p>

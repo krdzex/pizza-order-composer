@@ -1,95 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import glutenFree from "../images/gluten.png"
 import { useDispatch } from 'react-redux';
 import { addIngredients, closePopUpIngredients } from '../actions';
+import { list } from '../apiService/ingredientApi';
 
 const IngiredientsPopUp = () => {
+
+    useEffect(()=>{
+        list().then(response => setAllIngredients(response)).catch(err => console.log(err))
+
+    },[])
     const dispatch = useDispatch()
-    const [allIngredients, setAllIngredients] = useState([{
-        glutenFree: true,
-        isChacked: false,
-        name: "Mozzarell cheese",
-        price: 1
-    },
-    {
-        glutenFree: true,
-        isChacked: false,
-        name: "Parmesan cheese",
-        price: 1
-    },
-    {
-        glutenFree: true,
-        isChacked: false,
-        name: "Cheddar cheese",
-        price: 2
-    },
-    {
-        glutenFree: false,
-        isChacked: false,
-        name: "Feta cheese",
-        price: 1
-    },
-    {
-        glutenFree: true,
-        isChacked: false,
-        name: "Parmesan cheese",
-        price: 2
-    },
-    {
-        glutenFree: true,
-        isChacked: false,
-        name: "Sliced black olives",
-        price: 1.5
-    },
-    {
-        glutenFree: true,
-        isChacked: false,
-        name: "Sliced green olives",
-        price: 1
-    },
-    {
-        glutenFree: true,
-        isChacked: false,
-        name: "Hot souce",
-        price: 2
-    },
-    {
-        glutenFree: false,
-        isChacked: false,
-        name: "Romaine lettuce",
-        price: 0.5
-    },
-    {
-        glutenFree: false,
-        isChacked: false,
-        name: "Chopped artichoke hearts",
-        price: 1.5
-    },
-    {
-        glutenFree: true,
-        isChacked: false,
-        name: "Chopped tomato",
-        price: 1
-    },
-    {
-        glutenFree: false,
-        isChacked: false,
-        name: "Sliced green onion",
-        price: 1
-    },
-    {
-        glutenFree: true,
-        isChacked: false,
-        name: "Mushrooms",
-        price: 1
-    },
-    {
-        glutenFree: true,
-        isChacked: false,
-        name: "Sprinke of dry oregano",
-        price: 0.5
-    },
-    ])
+    const [allIngredients, setAllIngredients] = useState([])
 
     const onClickClose = () => {
         const addingIngredientsArr = [];

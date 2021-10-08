@@ -62,7 +62,7 @@ const Signin = () => {
                             <p style={{ fontStyle: "italic", textAlign: "center", color: "red", justifyContent: "center", fontWeight: "400", lineHeight: "0.5" }}>{values.error}</p>
                         </div>)}
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center',marginTop: "5px" }}>
                         <button className="signinButton" onClick={onSubmitClick}>Sign in</button>
                     </div>
                     <p style={{ textAlign: "center" }}>No account, <a href="/#" onClick={onHrefClick}>Sign up</a></p>

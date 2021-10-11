@@ -8,7 +8,13 @@ const Signup = () => {
     const dispatch = useDispatch()
     const onHrefClick = (e) => {
         e.preventDefault();
-        dispatch(openPopUpSignin());
+        dispatch(closePopUpSignup())
+        setTimeout(() => {
+            dispatch(openPopUpSignin());
+        }, 592.5);
+    }
+
+    const closePopUp = () =>{
         dispatch(closePopUpSignup())
     }
 
@@ -49,10 +55,9 @@ const Signup = () => {
         })
     }
     return (
-        <div className="popUpIngredients">
-            <div className="innerDiv signin" >
+            <div className="innerDiv signup" >
                 <div className="signInLogo">
-                    <img src={pizzaLogo} style={{ position: "relative", top: "50%", transform: "translate(0,-50%)" }} alt="pizza logo"></img>
+                    <img src={pizzaLogo} id="signupImg" style={{ position: "relative", top: "50%", transform: "translate(0,-50%)" }} alt="pizza logo"></img>
                 </div>
                 <div className="signInRightSide">
                     <h2>Sign Up</h2>
@@ -92,9 +97,8 @@ const Signup = () => {
                     </div>
                     <p style={{ textAlign: "center" }}>Already have an account, <a href="/#" onClick={onHrefClick}>Sign in</a></p>
                 </div>
-
+                <button id="closeBatton" onClick={() =>closePopUp()}><span></span></button>
             </div>
-        </div >
     );
 };
 

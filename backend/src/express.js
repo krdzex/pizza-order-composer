@@ -9,6 +9,7 @@ import authRoutes from "./routes/auth.routes"
 import orderRoutes from "./routes/order.routes"
 import doughRoutes from "./routes/dough.routes"
 import ingredientRoutes from "./routes/ingredients.route"
+import addressRoutes from "./routes/address.routes"
 
 const app = express();
 app.use(bodyParser.json())
@@ -22,5 +23,6 @@ app.use("/",authRoutes)
 app.use("/",orderRoutes)
 app.use("/",doughRoutes)
 app.use("/",ingredientRoutes)
+app.use("/",addressRoutes)
 
 export default app;

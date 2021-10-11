@@ -1,7 +1,7 @@
-const CartReducer = (state = { dough: [], ingredients: [], howMany: [] }, action) => {
+const CartReducer = (state = { dough: [], ingredients: [], howMany: [],deletedOrderId: [] }, action) => {
     switch (action.type) {
         case "NEW_ORDER":
-            return { ...state, dough: [...state.dough, action.payload], howMany: [...state.howMany, 1] };
+            return { ...state, dough: [...state.dough, action.payload], howMany: [...state.howMany, 1],deletedOrderId:[] };
         case "ADD_INGREDIENTS":
             return { ...state, ingredients: [...state.ingredients, action.payload] };
 
@@ -17,8 +17,22 @@ const CartReducer = (state = { dough: [], ingredients: [], howMany: [] }, action
                     (singleOrder, i) => i === action.id ? singleOrder - 1 : singleOrder
                 )
             }
+
+        case "DELETE_ORDER":
+            return {
+                ...state, dough: state.dough.filter(
+                    (singleDough, i) => i !== action.id
+                ),ingredients: state.ingredients.filter(
+                    (ingredients, i) => i !== action.id
+                ),
+                howMany: state.howMany.filter(
+                    (howManyOrders, i) => i !== action.id
+                ),
+                deletedOrderId: action.id
+            }
+
         case "DELETE_ORDERS":
-            return state = { dough: [], ingredients: [], howMany: []}
+            return state = { dough: [], ingredients: [], howMany: [],deletedOrderId: [] }
         default:
             return state
     }

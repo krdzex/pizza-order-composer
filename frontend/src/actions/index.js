@@ -88,6 +88,13 @@ export const deleteOrders = () => {
     }
 }
 
+export const deleteOrder = (id) => {
+    return {
+        type: "DELETE_ORDER",
+        id: id
+    }
+}
+
 export const openHistory = () => {
     return {
         type: "OPEN_HISTORY",
@@ -97,5 +104,11 @@ export const openHistory = () => {
 export const closeHistory = () => {
     return {
         type: "CLOSE_HISTORY",
+    }
+}
+
+export const removePrice = () => {
+    return {
+        type: "REMOVE_PRICE",
     }
 }

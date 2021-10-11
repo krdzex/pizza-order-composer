@@ -1,24 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { oneLess, oneMore, openPopUpSignin, order } from '../actions';
+import { deleteOrder, oneLess, oneMore, openPopUpSignin, order, removePrice } from '../actions';
 import auth from "../apiService/auth-helper"
 const Cart = () => {
     const dispatch = useDispatch()
     const orders = useSelector(state => state.CartReducer)
+    const ordersReducer = useSelector(state => state.orderReducer)
     const [orderPrice, setOrderPrice] = useState([]);
     const [multiplyPrice, setMultiplyPrice] = useState([])
+
+
     useEffect(() => {
-        let priceOfIngredients = 0
-        if (orders.ingredients.length > 0) {
-            for (let i = 0; i < orders.ingredients[orders.ingredients.length - 1].length; i++) {
-                priceOfIngredients += orders.ingredients[orders.ingredients.length - 1][i].price
+
+        if (ordersReducer.ordersPrice.length > 0) {
+            setOrderPrice(ordersReducer.ordersPrice)
+            const orderPriceCopy2 = ordersReducer.ordersPrice.slice();
+            for (let i = 0; i < ordersReducer.ordersPrice.length; i++) {
+                orderPriceCopy2[i] = ordersReducer.ordersPrice[i] * orders.howMany[i]
             }
-            priceOfIngredients += orders.dough[orders.dough.length - 1].price
-            setOrderPrice([...orderPrice, priceOfIngredients])
-            setMultiplyPrice([...multiplyPrice, priceOfIngredients])
+            setMultiplyPrice(orderPriceCopy2)
+            dispatch(removePrice())
+            return;
+        }
+
+        let priceOfIngredients = 0
+        let orderPriceCopy = orderPrice.slice();
+        let multiplyPriceCopy = multiplyPrice.slice();
+        if (orders.deletedOrderId.length !== 0) {
+            orderPriceCopy = orderPriceCopy.filter((price, i) => i !== orders.deletedOrderId)
+            multiplyPriceCopy = multiplyPriceCopy.filter((price, i) => i !== orders.deletedOrderId)
+            setOrderPrice(orderPriceCopy)
+            setMultiplyPrice(multiplyPriceCopy)
+        } else {
+            if (orders.ingredients.length > 0) {
+                for (let i = 0; i < orders.ingredients[orders.ingredients.length - 1].length; i++) {
+                    priceOfIngredients += orders.ingredients[orders.ingredients.length - 1][i].price
+                }
+                priceOfIngredients += orders.dough[orders.dough.length - 1].price
+                orderPriceCopy.push(priceOfIngredients)
+                multiplyPriceCopy.push(priceOfIngredients)
+                orderPriceCopy = orderPriceCopy.filter((price, i) => i !== orders.deletedOrderId)
+                multiplyPriceCopy = multiplyPriceCopy.filter((price, i) => i !== orders.deletedOrderId)
+                setOrderPrice(orderPriceCopy)
+                setMultiplyPrice(multiplyPriceCopy)
+            }
         }
         // eslint-disable-next-line
-    }, [orders.ingredients])
+    }, [orders.ingredients.length])
 
     const onPlusClick = (id) => {
         dispatch(oneMore(id));
@@ -57,7 +85,7 @@ const Cart = () => {
                                 <h2>{order.name}</h2>
                                 <div className="orderRightSide">
                                     <p>{multiplyPrice[id]}$</p>
-                                    <div style={{ border: "1px solid black", display: 'flex' }}>
+                                    <div style={{ border: "1px solid black", display: 'flex',marginLeft: "10px" }}>
                                         <button id="minus" onClick={() => onMinusClick(id)} disabled={orders.howMany[id] <= 1} style={orders.howMany[id] <= 1 ? { opacity: "0.5" } : { opacity: "1" }}>-</button>
                                         <div style={{ width: "30px", height: "30px", display: 'flex', justifyContent: "center", alignItems: "center", borderRight: "1px solid black", borderLeft: "1px solid black" }}>{orders.howMany[id]}</div>
                                         <button id="plus" onClick={() => onPlusClick(id)}>+</button>
@@ -70,6 +98,7 @@ const Cart = () => {
                                     return <div className="orderIngredient" key={index}>{ingredient.name}{index !== orders.ingredients[id].length - 1 ? "," : ""}</div>
                                 })}
                             </div>
+                            <div className="delete" onClick={() => dispatch(deleteOrder(id))}><p>x</p></div>
                         </div>
                     ))}
                 </div>
@@ -84,6 +113,8 @@ const Cart = () => {
                         <h2>Total</h2>
                         <p>{multiplyPrice.reduce((a, b) => a + b, 5)}$</p>
                     </div>
+                </div>
+                <div className="footerBotton">
                     <button onClick={() => onBuyClick()}>BUY</button>
                 </div>
             </div> : <div className="emptyCart"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" className="bi bi-cart" viewBox="0 0 16 16">

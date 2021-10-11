@@ -38,8 +38,8 @@ const IngiredientsPopUp = () => {
     const onRadioChange2 = () => {
     }
     return (
-        <div className="popUpIngredients">
-            <div className="innerDiv">
+        
+            <div className="innerDiv" id="ingredients">
                 <div className="ingredientsHeader">
                     <h2>Ingredients</h2>
                 </div>
@@ -50,7 +50,7 @@ const IngiredientsPopUp = () => {
                 </div>
                 <button onClick={() => onClickClose()}>+ ADD TO CART</button>
             </div>
-        </div >
+        
     );
 };
 

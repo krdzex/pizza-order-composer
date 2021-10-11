@@ -3,6 +3,8 @@ const OrderReducer = (state = { isOrdered: false, ordersPrice: [] }, action) => 
         case "ORDER":
             return { ...state, isOrdered: true, ordersPrice: action.payload };
         case "ORDERED":
+            return { ...state, isOrdered: false };
+        case "REMOVE_PRICE":
             return { ...state, isOrdered: false, ordersPrice: [] };
         default:
             return state

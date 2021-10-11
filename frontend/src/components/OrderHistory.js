@@ -12,7 +12,6 @@ const OrderHistory = () => {
 
     const [orderHistory, setOrderHistory] = useState([]);
 
-    console.log(orderHistory)
 
     return (
         <div className="orderHistoryWrapper">
@@ -21,20 +20,20 @@ const OrderHistory = () => {
             </div>
             {orderHistory.map((order, id) => (
 
-                <div className="singleOrder">
+                <div className="singleOrder" key={id}>
                     <div className="topSide">
                         <h3>
 
                             {order.dough}{order.quantity > 1 ? " x " + order.quantity : ""}
                         </h3>
-                        <div>
+                        <div className="price">
                             {order.price}$
                         </div>
                     </div>
                     <div className="buttomSide">
                         <div style={{ display: "flex" }}>
                             {order.ingredients.map((ingredient, id) => {
-                                return (<div style={{ display: "contents" }}>{ingredient.name}{id !== order.ingredients.length - 1 ? ", " : ""}</div>)
+                                return (<div key={id} style={{ display: "contents" }}>{ingredient.name}{id !== order.ingredients.length - 1 ? ", " : ""}</div>)
                             })}
                         </div>
                         <div>

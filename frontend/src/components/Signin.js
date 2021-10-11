@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { closePopUpSignin, openPopUpSignup } from '../actions';
 import { signin } from '../apiService/userApi';
 import auth from "../apiService/auth-helper"
+
 const Signin = () => {
     const dispatch = useDispatch()
 
@@ -20,7 +21,14 @@ const Signin = () => {
 
     const onHrefClick = (e) => {
         e.preventDefault();
-        dispatch(openPopUpSignup());
+        dispatch(closePopUpSignin())
+        setTimeout(() => {
+            dispatch(openPopUpSignup());
+        }, 592.5);
+
+    }
+
+    const closePopUp = () =>{
         dispatch(closePopUpSignin())
     }
 
@@ -42,34 +50,32 @@ const Signin = () => {
     }
 
     return (
-        <div className="popUpIngredients">
-            <div className="innerDiv signin" >
-                <div className="signInLogo">
-                    <img src={pizzaLogo} alt="pizza logo"></img>
-                </div>
-                <div className="signInRightSide">
-                    <h2>Sign in</h2>
-                    <div style={{ display: 'flex', flexDirection: "column", justifyContent: "center", alignItems: "flex-end", borderBottom: "1px solid black", paddingBottom: "10px", margin: "0px 20px" }}>
-                        <div>
-                            <label>Username:</label>
-                            <input type="text" value={values.name} onChange={onChangeHandler("name")} ></input>
-                        </div>
-                        <div>
-                            <label>Password:</label>
-                            <input type="password" value={values.password} onChange={onChangeHandler("password")}></input>
-                        </div>
-                        {values.error && (<div style={{ width: "100%" }}>
-                            <p style={{ fontStyle: "italic", textAlign: "center", color: "red", justifyContent: "center", fontWeight: "400", lineHeight: "0.5" }}>{values.error}</p>
-                        </div>)}
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'center',marginTop: "5px" }}>
-                        <button className="signinButton" onClick={onSubmitClick}>Sign in</button>
-                    </div>
-                    <p style={{ textAlign: "center" }}>No account, <a href="/#" onClick={onHrefClick}>Sign up</a></p>
-                </div>
-
+        <div className={"innerDiv signin"} >
+            <div className="signInLogo">
+                <img src={pizzaLogo} alt="pizza logo"></img>
             </div>
-        </div >
+            <div className="signInRightSide">
+                <h2>Sign in</h2>
+                <div style={{ display: 'flex', flexDirection: "column", justifyContent: "center", alignItems: "flex-end", borderBottom: "1px solid black", paddingBottom: "10px", margin: "0px 20px" }}>
+                    <div>
+                        <label>Username:</label>
+                        <input type="text" value={values.name} onChange={onChangeHandler("name")} ></input>
+                    </div>
+                    <div>
+                        <label>Password:</label>
+                        <input type="password" value={values.password} onChange={onChangeHandler("password")}></input>
+                    </div>
+                    {values.error && (<div style={{ width: "100%" }}>
+                        <p style={{ fontStyle: "italic", textAlign: "center", color: "red", justifyContent: "center", fontWeight: "400", lineHeight: "0.5" }}>{values.error}</p>
+                    </div>)}
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: "5px" }}>
+                    <button className="signinButton" onClick={onSubmitClick}>Sign in</button>
+                </div>
+                <p style={{ textAlign: "center" }}>No account, <a href="/#" onClick={onHrefClick}>Sign up</a></p>
+            </div>
+            <button id="closeBatton" onClick={() =>closePopUp()}><span></span></button>
+        </div>
     );
 };
 

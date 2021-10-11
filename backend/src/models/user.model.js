@@ -50,13 +50,13 @@ UserSchema.path("hashed_password").validate(function (v) {
 
 UserSchema.path("name").validate(function (v) {
     if (this.name.length > 10) {
-        this.invalidate("name", "Name cant be longer then 10 characters")
+        this.invalidate("name", "Name is longer then 10 characters")
     }
 }, null)
 
 UserSchema.path("email").validate(function (v) {
-    if (this.email.length > 15) {
-        this.invalidate("email", "email cant be longer then 15 characters")
+    if (this.email.length > 40) {
+        this.invalidate("email", "Email is longer then 40 characters")
     }
 }, null)
 

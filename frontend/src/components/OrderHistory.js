@@ -18,6 +18,7 @@ const OrderHistory = () => {
             <div className="orderHistoryHeader">
                 <h2>Order history</h2>
             </div>
+            <div className="historyOrders">
             {orderHistory.map((order, id) => (
 
                 <div className="singleOrder" key={id}>
@@ -42,6 +43,7 @@ const OrderHistory = () => {
                     </div>
                 </div>
             ))}
+            </div>
         </div>
     );
 };

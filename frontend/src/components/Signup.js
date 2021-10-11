@@ -14,7 +14,7 @@ const Signup = () => {
         }, 592.5);
     }
 
-    const closePopUp = () =>{
+    const closePopUp = () => {
         dispatch(closePopUpSignup())
     }
 
@@ -46,59 +46,68 @@ const Signup = () => {
             confirmPassword: values.confirmPassword || undefined,
         }
         create(user).then((data) => {
-            if (data.error) setValues({ ...values, error: data.error });
-            else {
-                setValues({ ...values, error: "" })
-                dispatch(closePopUpSignup());
-                dispatch(openPopUpSignin());
+            if (data.error) {
+                if (data.error.includes(":")) {
+                    let parts = data.error.split(":")
+                    setValues({ ...values, error: parts[2] })
+                } else {
+                    setValues({ ...values, error: data.error })
+                    return
+                }
+            }else{
+                    setValues({ ...values, error: "" })
+                    dispatch(closePopUpSignup());
+                    setTimeout(() => {
+                        dispatch(openPopUpSignin());
+                    }, 592.5);
             }
         })
     }
     return (
-            <div className="innerDiv signup" >
-                <div className="signInLogo">
-                    <img src={pizzaLogo} id="signupImg" style={{ position: "relative", top: "50%", transform: "translate(0,-50%)" }} alt="pizza logo"></img>
-                </div>
-                <div className="signInRightSide">
-                    <h2>Sign Up</h2>
-                    <div style={{ display: 'flex', flexDirection: "column", justifyContent: "center", alignItems: "flex-end", borderBottom: "1px solid black", paddingBottom: "10px", margin: "0px 20px" }}>
-                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginLeft: "-3px" }}>
-                            <label>Username:</label>
-                            <input type="text" value={values.username} onChange={handleChange("username")}></input>
-                        </div>
-                        <div>
-                            <label>Email:</label>
-                            <input type="text" value={values.email} onChange={handleChange("email")}></input>
-                        </div>
-
-                        <div className="password">
-                            <label>Password:</label>
-
-                            <input type={visibility.vis1 ? "text" : "password"} value={values.password} onChange={handleChange("password")}></input>
-                            <div onClick={() => visibilitChange("vis1")}>
-                                {visibility.vis1 ? <Icon icon="bi:eye" style={{ marginLeft: "-30px", cursor: "pointer" }} /> : <Icon icon="bi:eye-slash" style={{ marginLeft: "-30px", cursor: "pointer" }} />}
-                            </div>
-
-                        </div>
-                        <div className="password">
-                            <label>Password:</label>
-                            <input type={visibility.vis2 ? "text" : "password"} value={values.confirmPassword} onChange={handleChange("confirmPassword")}></input>
-                            <div onClick={() => visibilitChange("vis2")}>
-                                {visibility.vis2 ? <Icon icon="bi:eye" style={{ marginLeft: "-30px", cursor: "pointer" }} /> : <Icon icon="bi:eye-slash" style={{ marginLeft: "-30px", cursor: "pointer" }} />}
-                            </div>
-                        </div>
-                        {values.error && (<div style={{ width: "100%" }}>
-                            <p style={{ fontStyle: "italic", textAlign: "center", color: "red", justifyContent: "center", fontWeight: "400", lineHeight: "0.5" }}>{values.error}</p>
-                        </div>)}
-
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'center',marginTop:"5px"}}>
-                        <button className="signinButton" onClick={clickSubmit}>Sign up</button>
-                    </div>
-                    <p style={{ textAlign: "center" }}>Already have an account, <a href="/#" onClick={onHrefClick}>Sign in</a></p>
-                </div>
-                <button id="closeBatton" onClick={() =>closePopUp()}><span></span></button>
+        <div className="innerDiv signup" >
+            <div className="signInLogo">
+                <img src={pizzaLogo} id="signupImg" style={{ position: "relative", top: "50%", transform: "translate(0,-50%)" }} alt="pizza logo"></img>
             </div>
+            <div className="signInRightSide">
+                <h2>Sign Up</h2>
+                <div style={{ display: 'flex', flexDirection: "column", justifyContent: "center", alignItems: "flex-end", borderBottom: "1px solid black", paddingBottom: "10px", margin: "0px 20px" }}>
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginLeft: "-3px" }}>
+                        <label>Username:</label>
+                        <input type="text" value={values.username} onChange={handleChange("username")}></input>
+                    </div>
+                    <div>
+                        <label>Email:</label>
+                        <input type="text" value={values.email} onChange={handleChange("email")}></input>
+                    </div>
+
+                    <div className="password">
+                        <label>Password:</label>
+
+                        <input type={visibility.vis1 ? "text" : "password"} value={values.password} onChange={handleChange("password")}></input>
+                        <div onClick={() => visibilitChange("vis1")}>
+                            {visibility.vis1 ? <Icon icon="bi:eye" style={{ marginLeft: "-30px", cursor: "pointer" }} /> : <Icon icon="bi:eye-slash" style={{ marginLeft: "-30px", cursor: "pointer" }} />}
+                        </div>
+
+                    </div>
+                    <div className="password">
+                        <label>Password:</label>
+                        <input type={visibility.vis2 ? "text" : "password"} value={values.confirmPassword} onChange={handleChange("confirmPassword")}></input>
+                        <div onClick={() => visibilitChange("vis2")}>
+                            {visibility.vis2 ? <Icon icon="bi:eye" style={{ marginLeft: "-30px", cursor: "pointer" }} /> : <Icon icon="bi:eye-slash" style={{ marginLeft: "-30px", cursor: "pointer" }} />}
+                        </div>
+                    </div>
+                    {values.error && (<div style={{ width: "100%" }}>
+                        <p style={{ fontStyle: "italic", textAlign: "center", color: "red", justifyContent: "center", fontWeight: "400", lineHeight: "0.5" }}>{values.error}</p>
+                    </div>)}
+
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: "5px" }}>
+                    <button className="signinButton" onClick={clickSubmit}>Sign up</button>
+                </div>
+                <p style={{ textAlign: "center" }}>Already have an account, <a href="/#" onClick={onHrefClick}>Sign in</a></p>
+            </div>
+            <button id="closeBatton" onClick={() => closePopUp()}><span></span></button>
+        </div>
     );
 };
 

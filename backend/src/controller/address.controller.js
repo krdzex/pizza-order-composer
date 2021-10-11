@@ -16,7 +16,7 @@ const create = (req, res, next) => {
 }
 
 const list = (req, res) => {
-    Address.find({ creator: req.params.user}, (err, address) => {
+    Address.find({ creator: req.params.user }, (err, address) => {
         if (err) {
             return res.status(400).json({
                 error: errorHandler.getErrorMessage(err)
@@ -26,4 +26,15 @@ const list = (req, res) => {
     })
 }
 
-export default { create, list }
+const deleteOne = (req, res) => {
+    Address.deleteOne({ _id: req.params.id }, (err, address) => {
+        if (err) {
+            return res.status(400).json({
+                error: errorHandler.getErrorMessage(err)
+            })
+        }
+        res.json(address);
+    })
+}
+
+export default { create, list, deleteOne }

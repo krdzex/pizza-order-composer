@@ -182,6 +182,16 @@
     padding-right: 10px;
 }
 
+.historyOrders{
+    height: 500px;
+    overflow: auto;
+    padding-right: 10px;
+}
+
+.delete.address{
+    right: 4px;
+}
+
 .cartFooter {
     border-top: 1px solid black;
 }
@@ -775,4 +785,13 @@
 
 .finish{
 text-align: center;
+}
+
+.orders > :nth-child(1) {
+    flex-basis: 25%;
+}
+
+.error{
+    position: relative;
+    text-align: center;
 }

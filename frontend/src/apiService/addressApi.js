@@ -14,5 +14,16 @@ const addressList = (user) => {
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
     }).then(response => response.json()).catch(err => console.log(err))
 }
+const removeAddress = (address) => {
+    return fetch(`${baseUrl}/api/address/${address}`, {
+        method: "DELETE",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        }
+    })
+        .then((response) => response.json())
+        .catch(err => console.log(err))
+}
 
-export { createAddress,addressList }
+export { createAddress,addressList,removeAddress }

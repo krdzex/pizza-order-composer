@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteOrders, oneLess, oneMore, openHistory, ordered, removePrice } from '../actions';
 import { createOrder } from '../apiService/orderApi';
 import auth from "../apiService/auth-helper"
-import { addressList, createAddress } from '../apiService/addressApi';
+import { addressList, createAddress, removeAddress } from '../apiService/addressApi';
 
 const Order = () => {
     const dispatch = useDispatch()
@@ -13,13 +13,17 @@ const Order = () => {
     const [makeAddress, setMakeAddress] = useState(false)
     const [noOfAddress, setNoOfAddress] = useState(0)
     const [addresses, setAddresses] = useState([])
-const [popUp,setPopUp] = useState(false)
+    const [popUp, setPopUp] = useState(false)
 
     const [values, setValues] = useState({
         address: "",
         floor: 1,
         error: ""
     })
+    const addressDelete = (addressId) => {
+        removeAddress(addressId).then(response => console.log(response)).catch(reason => console.log(reason))
+        setNoOfAddress(noOfAddress - 1)
+    }
 
     const onChange = name => event => {
         setValues({ ...values, [name]: event.target.value })
@@ -54,18 +58,19 @@ const [popUp,setPopUp] = useState(false)
         setPopUp(true)
     }
 
-    const onNewOrder = () =>{
+    const onNewOrder = () => {
         dispatch(ordered())
         dispatch(deleteOrders())
         dispatch(removePrice())
+        setPopUp(false)
     }
 
-    const onOpenHistory = () =>{
+    const onOpenHistory = () => {
         dispatch(openHistory())
         dispatch(ordered())
         dispatch(deleteOrders())
         dispatch(removePrice())
-
+        setPopUp(false)
     }
 
     const onPlusClick = (id) => {
@@ -126,7 +131,7 @@ const [popUp,setPopUp] = useState(false)
                                 <p>Chack:</p>
                                 <input id="radio" defaultChecked={i === 0 ? true : false} type="radio" style={{ marginLeft: "1px" }} name="address" value={address.address} />
                             </div>
-
+                            <div className="delete address" onClick={() => addressDelete(address._id)}><p>x</p></div>
 
                         </div>
                     )))}
@@ -188,7 +193,7 @@ const [popUp,setPopUp] = useState(false)
                 </div>
             </div>
             {popUp && (<div className="popUpIngredients">
-                <div className="innerDiv finish">
+                {noOfAddress > 0 ? <div className="innerDiv finish">
                     <div>
                         <h2>Congratulation, you successfully made order</h2>
                     </div>
@@ -200,7 +205,12 @@ const [popUp,setPopUp] = useState(false)
                             ORDER HISTORY
                         </button>
                     </div>
-                </div>
+                </div> :
+                    <div className="innerDiv error">
+                        <h2>Unfortunately, we couldnt make your order without your address.</h2>
+                        <h2>Try again with address</h2>
+                        <button id="closeBatton" onClick={() => setPopUp(false)}><span></span></button>
+                    </div>}
             </div>)}
         </div>
     );

@@ -111,6 +111,8 @@ const Order = () => {
             }
         })
     }
+
+    console.log(addresses.length)
     return (
         <div className="orderWrapper">
             <div className="addressWrapper">
@@ -193,7 +195,7 @@ const Order = () => {
                 </div>
             </div>
             {popUp && (<div className="popUpIngredients">
-                {noOfAddress > 0 ? <div className="innerDiv finish">
+                {addresses.length > 0 ? <div className="innerDiv finish">
                     <div>
                         <h2>Congratulation, you successfully made order</h2>
                     </div>
